@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 // apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
+
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -17,12 +19,41 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
 }
 
-publish {
-    userOrg = rootProject.ext.POM_DEVELOPER_ID
-    groupId = rootProject.ext.POM_GROUP
-    artifactId = rootProject.ext.POM_ARTIFACT_ID
-    uploadName = rootProject.ext.POM_ARTIFACT_NAME
-    publishVersion = rootProject.ext.POM_VERSION_NAME
-    desc = rootProject.ext.POM_DESCRIPTION
-    website = rootProject.ext.POM_URL
+// publish {
+//     userOrg = rootProject.ext.POM_DEVELOPER_ID
+//     groupId = rootProject.ext.POM_GROUP
+//     artifactId = rootProject.ext.POM_ARTIFACT_ID
+//     uploadName = rootProject.ext.POM_ARTIFACT_NAME
+//     publishVersion = rootProject.ext.POM_VERSION_NAME
+//     desc = rootProject.ext.POM_DESCRIPTION
+//     website = rootProject.ext.POM_URL
+// }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = rootProject.ext.POM_GROUP
+            artifactId = rootProject.ext.POM_ARTIFACT_ID
+            version = rootProject.ext.POM_VERSION_NAME
+            pom {
+                name = rootProject.ext.POM_ARTIFACT_NAME
+                description = rootProject.ext.POM_DESCRIPTION
+                url = rootProject.ext.POM_URL
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = rootProject.ext.POM_DEVELOPER_ID
+                        name = 'Developer Name'
+                        email = 'developer@example.com'
+                    }
+                }
+            }
+        }
+    }
 }
