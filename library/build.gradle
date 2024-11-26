@@ -31,8 +31,9 @@ dependencies {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            from components.java
+        aar(MavenPublication) {
+            // Use the release variant of your library
+            from components.release
             groupId = rootProject.ext.POM_GROUP
             artifactId = rootProject.ext.POM_ARTIFACT_ID
             version = rootProject.ext.POM_VERSION_NAME
